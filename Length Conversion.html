@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Length Conversion</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f8d7da;
+        }
+
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border: 2px solid #dc3545;
+            text-align: center;
+            width: 400px;
+        }
+
+        input[type="text"] {
+            width: 80%;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #6c757d;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #5a6268;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Length Conversion</h1>
+        <label for="mmInput">Millimeters:</label>
+        <input type="text" id="mmInput" placeholder="Enter mm">
+        <br>
+        <label for="outputInches">Output(Inches):</label>
+        <input type="text" id="outputInches" disabled>
+        <p>1 Millimeter = 0.0394 inch</p>
+        <button onclick="convert()">Convert</button>
+        <button onclick="clearFields()">Clear</button>
+        <br><br>
+        <footer>© 2023</footer>
+    </div>
+
+    <script>
+        function convert() {
+            const mm = parseFloat(document.getElementById('mmInput').value);
+            if (!isNaN(mm)) {
+                const inches = mm * 0.0394;
+                document.getElementById('outputInches').value = inches.toFixed(4);
+            }
+        }
+
+        function clearFields() {
+            document.getElementById('mmInput').value = '';
+            document.getElementById('outputInches').value = '';
+        }
+    </script>
+</body>
+</html>
