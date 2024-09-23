@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User and Pass Validation</title>
+  <link rel="stylesheet" href="FormValidation.css">
+</head>
+<body>
+  <div class="form-container">
+    <h1>Validation</h1>
+    <form>
+      <p>Start with uppercase letter, 5-10 characters, alphanumeric</p>
+      <label for="user">Username:</label>
+      <input type="text" id="user" name="user" placeholder="Enter your Username" required>
+      <p id="pMsg"></p>
+      
+      
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" placeholder="Enter your Password" required>
+      <p id="uMsg"></p>
+      <p>Start with uppercase letter, 5-20 characters, alphanumeric</p>
+      
+      <div class="button-container">
+        <button type="button" onclick="ValidationUserName(); ValidationPassWord();">Log in</button>
+        <button type="reset">Reset</button>
+      </div>
+    </form>
+  </div>
+
+  <script src="FormValidation.js"></script>
+</body>
+</html>
