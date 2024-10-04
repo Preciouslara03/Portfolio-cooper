@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Computation of Grades</title>
+    <style>
+        body {
+            background-color: lightpink;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        table {
+            width: 60%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid black;
+            text-align: center;
+        }
+        input[type="number"] {
+            width: 70px;
+        }
+        .btnFormat{
+            display: inline-block;
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+            border: 1px solid #ddd;
+            padding: 5px 10px;
+            background-color: #F0f0f0;
+            margin-top: 5px;
+            border-radius: 4px;
+            text-align: center;
+        }
+    
+        .section-title {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        .compute-btn {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        .result-display {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div>
+    <table border="1">
+        <tr>
+            <th colspan="4">Computation of Grades</th>
+        </tr>
+
+        <!-- WRITTEN TASKS SECTION -->
+        <tr>
+            <td colspan="4">WRITTEN TASKS</td>
+        </tr>
+        <tr>
+            <td>Quiz 1</td>
+            <td><input type="number" id="txtQuiz1" value=""></td>
+            <td>/</td>
+            <td><input type="number" id="qRange1" value=""></td>
+        </tr>
+        <tr>
+            <td>Quiz 2</td>
+            <td><input type="number" id="txtQuiz2" value=""></td>
+            <td>/</td>
+            <td><input type="number" id="qRange2" value=""></td>
+        </tr>
+        <tr>
+            <td>Quiz 3</td>
+            <td><input type="number" id="txtQuiz3" value=""></td>
+            <td>/</td>
+            <td><input type="number" id="qRange3" value=""></td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <button onclick="computeQuizzes()">Compute Quizzes</button>
+                <span id="txtTotalQuizzes"></span>
+                <input type="checkbox" id="chkQuiz"> 20% 
+                <span id="quizResult"></span>
+            </td>
+        </tr>
+
+        <!-- PERFORMANCE TASKS SECTION (Can be implemented similarly) -->
+        <tr>
+            <td colspan="4">PERFORMANCE TASKS</td>
+        </tr>
+        <tr>
+            <td>PT 1</td>
+            <td><input type="number" id="txtPT1" value=""></td>
+            <td>/</td>
+            <td><input type="number" id="ptRange1" value=""></td>
+        </tr>
+        <tr>
+            <td>PT 2</td>
+            <td><input type="number" id="txtPT2" value=""></td>
+            <td>/</td>
+            <td><input type="number" id="ptRange2" value=""></td>
+        </tr>
+        <tr>
+            <td>PT 3</td>
+            <td><input type="number" id="txtPT3" value=""></td>
+            <td>/</td>
+            <td><input type="number" id="ptRange3" value=""></td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <button onclick="computePerformance()">Compute Performance Tasks</button>
+                <span id="txtTotalPerformance"></span>
+                <input type="checkbox" id="chkPerformance"> 60%
+                <span id="performanceResult"></span>
+            </td>
+        </tr>
+
+        <!-- EXAM SECTION -->
+        <tr>
+            <td colspan="4">EXAM</td>
+        </tr>
+        <tr>
+            <td>Exam</td>
+            <td><input type="number" id="txtExam" value=""></td>
+            <td>/</td>
+            <td><input type="number" id="examRange" value=""></td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <button onclick="computeExam()">Compute Exam</button>
+                <span id="txtTotalExam"></span>
+                <input type="checkbox" id="chkExam"> 20%
+                <span id="examResult"></span
+            </td>    
+        <tr>
+    <td colspan="4">
+        <div class="compute-section">
+            <span class="btnFormat" onclick="computeFinalGrade()">GRADE</span>
+            <span>: <span id="txtGrade" class="output"></span></span>
+        </div>
+    </td>
+</tr>/tr>
+        
+    </table>
+</div>
+
+
+<script>
+// Function to compute quiz scores
+function computeQuizzes() {
+    const q1 = parseInt(document.getElementById("txtQuiz1").value) || 0;
+    const q2 = parseInt(document.getElementById("txtQuiz2").value) || 0;
+    const q3 = parseInt(document.getElementById("txtQuiz3").value) || 0;
+
+    const rangeQ1 = parseInt(document.getElementById("qRange1").value) || 0;
+    const rangeQ2 = parseInt(document.getElementById("qRange2").value) || 0;
+    const rangeQ3 = parseInt(document.getElementById("qRange3").value) || 0;
+
+    let totalQuizzes;
+    if (rangeQ1 + rangeQ2 + rangeQ3 > 0) {
+        totalQuizzes = ((q1 + q2 + q3) / (rangeQ1 + rangeQ2 + rangeQ3)) * 100;
+    } else {
+        totalQuizzes = 0;
+    }
+
+    document.getElementById("txtTotalQuizzes").innerText = totalQuizzes.toFixed(2);
+
+    let quizResult;
+    if (document.getElementById("chkQuiz").checked) {
+        quizResult = (totalQuizzes * 0.20).toFixed(2);
+    } else {
+        quizResult = totalQuizzes.toFixed(2);
+    }
+
+    document.getElementById("quizResult").innerText = quizResult;
+}
+
+// Function to compute performance task scores
+function computePerformance() {
+    const pt1 = parseInt(document.getElementById("txtPT1").value) || 0;
+    const pt2 = parseInt(document.getElementById("txtPT2").value) || 0;
+    const pt3 = parseInt(document.getElementById("txtPT3").value) || 0;
+
+    const rangePT1 = parseInt(document.getElementById("ptRange1").value) || 0;
+    const rangePT2 = parseInt(document.getElementById("ptRange2").value) || 0;
+    const rangePT3 = parseInt(document.getElementById("ptRange3").value) || 0;
+
+    let totalPerformance;
+    if (rangePT1 + rangePT2 + rangePT3 > 0) {
+        totalPerformance = ((pt1 + pt2 + pt3) / (rangePT1 + rangePT2 + rangePT3)) * 100;
+    } else {
+        totalPerformance = 0;
+    }
+
+    document.getElementById("txtTotalPerformance").innerText = totalPerformance.toFixed(2);
+
+    let performanceResult;
+    if (document.getElementById("chkPerformance").checked) {
+        performanceResult = (totalPerformance * 0.60).toFixed(2);
+    } else {
+        performanceResult = totalPerformance.toFixed(2);
+    }
+
+    document.getElementById("performanceResult").innerText = performanceResult;
+
+    // Update final grade
+    updateFinalGrade();
+}
+
+// Function to compute exam scores
+function computeExam() {
+    const exam = parseInt(document.getElementById("txtExam").value) || 0;
+    const examRange = parseInt(document.getElementById("examRange").value) || 0;
+
+    let totalExam;
+    if (examRange > 0) {
+        totalExam = (exam / examRange) * 100;
+    } else {
+        totalExam = 0;
+    }
+
+    document.getElementById("txtTotalExam").innerText = totalExam.toFixed(2);
+
+    let examResult;
+    if (document.getElementById("chkExam").checked) {
+        examResult = (totalExam * 0.20).toFixed(2);
+    } else {
+        examResult = totalExam.toFixed(2);
+    }
+
+    document.getElementById("examResult").innerText = examResult;
+
+    // Update final grade
+    updateFinalGrade();
+}
+
+// Function to update final grade
+function updateFinalGrade() {
+    const quizResult = parseFloat(document.getElementById("quizResult").innerText);
+    const performanceResult = parseFloat(document.getElementById("performanceResult").innerText);
+    const examResult = parseFloat(document.getElementById("examResult").innerText);
+
+    const finalGrade = quizResult + performanceResult + examResult;
+    document.getElementById("finalGrade").innerText = finalGrade.toFixed(2);
+}
+
+// Function to compute all grades
+function computeAllGrades() {
+    computeQuizzes();
+    computePerformance();
+    computeExam();
+    updateFinalGrade();
+}
+
+// Event listeners for performance and exam checkboxes
+document.getElementById("chkPerformance").addEventListener('change', computePerformance);
+document.getElementById("chkExam").addEventListener('change', computeExam);
+document.getElementById("chkQuiz").addEventListener('change', computeQuizzes);
+
+// Event listener for compute all grades button
+    function computeFinalGrade() {
+    const quizResult = parseFloat(document.getElementById("quizResult").innerText) || 0;
+    const performanceResult = parseFloat(document.getElementById("performanceResult").innerText) || 0;
+    const examResult = parseFloat(document.getElementById("examResult").innerText) || 0;
+
+    // Sum up the results to calculate the final grade
+    const finalGrade = quizResult + performanceResult + examResult;
+
+    // Update the final grade display
+    document.getElementById("txtGrade").innerText = finalGrade.toFixed(2);
+}
+</script>
+
+    <p>Program by:
+        <br> De Una,Precious Lara V.<br>
+        Jamil,James Ryan C.</p>
+</body>
+</html>
