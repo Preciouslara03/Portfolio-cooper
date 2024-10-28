@@ -1,0 +1,72 @@
+[
+    {
+        "name": "Backstage Face and Body Foundation",
+        "brand": "Dior",
+        "description": "A versatile foundation with a natural finish, suitable for both face and body.",
+        "price": 40.00,
+        "cover": "Dior backstage face and body foundation.jpg"
+    },
+    {
+        "name": "Addict Lip Sugar Scrub",
+        "brand": "Dior",
+        "description": "A lip scrub that nourishes and preps lips for smooth, even color.",
+        "price": 34.00,
+        "cover": "Dior addict lip sugar scrub.jpg"
+    },
+    {
+        "name": "Rouge Dior Couture Lipstick",
+        "brand": "Dior",
+        "description": "A luxurious, long-lasting lipstick with intense color and hydration.",
+        "price": 38.00,
+        "cover": "Rouge dior Couture Lipstick.jpg"
+    },
+    {
+        "name": "Airbrush Flawless Finish Setting Powder",
+        "brand": "Charlotte Tilbury",
+        "description": "A lightweight setting powder for a flawless, airbrushed finish.",
+        "price": 45.00,
+        "cover": "Charlotte Tilbury Airbrush Flawless Finish Setting Powder.jpg"
+    },
+    {
+        "name": "Beautiful Skin Concealer",
+        "brand": "Charlotte Tilbury",
+        "description": "A concealer that hydrates, brightens, and conceals for a fresh, natural look.",
+        "price": 32.00,
+        "cover": "charlotte tilbury Beautiful skin concealer.jpg"
+    },
+    {
+        "name": "Hollywood Contour Wand",
+        "brand": "Charlotte Tilbury",
+        "description": "An easy-to-blend contour wand for natural-looking definition.",
+        "price": 40.00,
+        "cover": "Charlotte Tilbury Hollywood Contour wand.jpg"
+    },
+    {
+        "name": "Mini Soft Pinch Liquid Blush",
+        "brand": "Rare Beauty",
+        "description": "A dewy, long-lasting liquid blush with a soft, natural flush of color.",
+        "price": 20.00,
+        "cover": "Rare Beauty Mini Soft Pinch Liquid Blush.jpg"
+    },
+    {
+        "name": "Golden Eyeshadow Palette",
+        "brand": "Natasha Denona",
+        "description": "A richly pigmented eyeshadow palette with warm, golden tones.",
+        "price": 129.00,
+        "cover": "NATASHA DENONA Golden Eyeshadow Pallete.jpg"
+    },
+    {
+        "name": "Perfect Strokes Matte Liquid Liner",
+        "brand": "Rare Beauty",
+        "description": "An ultra-black, long-lasting liquid liner with a precision tip.",
+        "price": 19.00,
+        "cover": "Rare Beauty Perfect Strokes Matte Liquid Liner.jpg"
+    },
+    {
+        "name": "Perfect Strokes Universal Volumizing Mascara Mini",
+        "brand": "Rare Beauty",
+        "description": "A volumizing mascara that adds length and fullness to lashes.",
+        "price": 11.00,
+        "cover": "Rare Beauty Perfect Strokes Universal Volumizing Mascara Mini.jpg"
+    }
+]
