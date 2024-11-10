@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pink Lover Drag and Drop Wordle Game</title>
+    <style>
+        /* CSS styling for the game */
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #ffd6e8, #ffaad4); /* Light pink gradient */
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            border: 2px solid #ff91b8; /* Pink border */
+            border-radius: 15px;
+            background-color: #ffe4ed; /* Soft pink background */
+            box-shadow: 0 4px 8px rgba(255, 145, 184, 0.4);
+        }
+
+        .draggableContainer, .keyboardContainer {
+            display: flex;
+            justify-content: center;
+            margin: 20px;
+            flex-wrap: wrap;
+        }
+
+        .tile {
+            width: 50px;
+            height: 50px;
+            margin: 5px;
+            background-color: #ff91b8; /* Pink tiles */
+            color: white;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: transform 0.2s ease;
+            box-shadow: 0 4px 6px rgba(255, 145, 184, 0.5);
+        }
+
+        .tile:active {
+            transform: scale(1.1);
+        }
+
+        .slot {
+            width: 50px;
+            height: 50px;
+            margin: 5px;
+            border: 2px solid #ff5c8d; /* Darker pink border */
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            border-radius: 10px;
+            color: #ff5c8d;
+        }
+
+        .slot.highlight {
+            background-color: #ffd6e8; /* Light pink highlight */
+        }
+
+        .keyboard-key {
+            width: 40px;
+            height: 40px;
+            margin: 3px;
+            background-color: #ffbcd9; /* Softer pink for keyboard keys */
+            color: #ff5c8d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.2s ease;
+        }
+
+        .correct {
+            background-color: #ff91b8; /* Deeper pink for correct tiles */
+            color: white;
+        }
+
+        .present {
+            background-color: #ffd6e8; /* Light pink for present tiles */
+            color: #ff5c8d;
+        }
+
+        .absent {
+            background-color: #ffe4ed; /* Softer pink for absent tiles */
+            color: #ff5c8d;
+        }
+
+        .controls {
+            margin-top: 10px;
+        }
+
+        button {
+            margin: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #ff5c8d;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 4px 8px rgba(255, 92, 141, 0.3);
+        }
+
+        button:hover {
+            background-color: #ff91b8;
+        }
+
+        .board p {
+            color: #ff5c8d;
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        /* Styling for Game Rules */
+        .rules {
+            text-align: left;
+            font-size: 1em;
+            color: #ff5c8d;
+            background-color: #fff0f6;
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(255, 145, 184, 0.2);
+        }
+
+        .rules h2 {
+            color: #ff5c8d;
+        }
+
+        .rules ul {
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 style="color: #ff5c8d;">Drag and Drop Wordle Game</h1>
+        </header>
+
+        <!-- Game Rules Section -->
+        <div class="rules">
+            <h2>Game Rules</h2>
+            <ul>
+                <li><strong>Drag and Drop</strong>: Drag letter tiles to the slots to form a 5-letter word.</li>
+                <li><strong>Submit</strong>: Press "Enter" to check your guess.</li>
+                <li><strong>Feedback Colors</strong>:
+                    <ul>
+                        <li>Pink: Letter is in the correct spot.</li>
+                        <li>Light Pink: Letter is in the word but wrong spot.</li>
+                        <li>Soft Pink: Letter is not in the word.</li>
+                    </ul>
+                </li>
+                <li><strong>Goal</strong>: Guess the word in 6 tries or less!</li>
+                <li><strong>Clear Row</strong>: Erase the current row to start over.</li>
+                <li><strong>Reset Game</strong>: Start a new game anytime.</li>
+            </ul>
+        </div>
+
+        <div class="draggableContainer">
+            <div class="tile" draggable="true" id="D">D</div>
+            <div class="tile" draggable="true" id="C">C</div>
+            <div class="tile" draggable="true" id="E">E</div>
+            <div class="tile" draggable="true" id="S">S</div>
+            <div class="tile" draggable="true" id="O">O</div>
+        </div>
+
+        <div id="word-slots" class="droppableContainer"></div>
+
+        <div class="controls">
+            <button onclick="submitWord()">Enter</button>
+            <button onclick="clearRow()">Clear Row</button>
+            <button onclick="resetGame()">Reset Game</button>
+        </div>
+
+        <div id="keyboard" class="keyboardContainer"></div>
+
+        <div class="board">
+            <p id="remarks"></p>
+        </div>
+    </div>
+
+    <script>
+        // Game settings and variables
+        const targetWord = "CODES";  // Target word
+        const rows = 6;              // Max number of attempts
+        const columns = targetWord.length;
+        let currentRow = 0;
+        let currentWord = Array(columns).fill(null);
+
+        // Generate the word slots grid
+        const wordSlots = document.getElementById("word-slots");
+        for (let i = 0; i < rows; i++) {
+            const row = document.createElement("div");
+            row.classList.add("droppableContainer");
+            for (let j = 0; j < columns; j++) {
+                const slot = document.createElement("div");
+                slot.classList.add("slot");
+                slot.dataset.row = i;
+                slot.dataset.column = j;
+
+                // Event listeners for drag and drop
+                slot.addEventListener("dragover", event => {
+                    event.preventDefault();
+                    if (parseInt(slot.dataset.row) === currentRow && slot.textContent === "") {
+                        slot.classList.add("highlight");
+                    }
+                });
+                slot.addEventListener("dragleave", () => slot.classList.remove("highlight"));
+                slot.addEventListener("drop", handleDrop);
+                row.appendChild(slot);
+            }
+            wordSlots.appendChild(row);
+        }
+
+        // Keyboard display setup
+        const keyboard = document.getElementById("keyboard");
+        "QWERTYUIOPASDFGHJKLZXCVBNM".split("").forEach(letter => {
+            const key = document.createElement("div");
+            key.classList.add("keyboard-key");
+            key.innerText = letter;
+            keyboard.appendChild(key);
+        });
+
+        // Event listener for dragging tiles
+        document.querySelectorAll('.tile').forEach(tile => {
+            tile.addEventListener('dragstart', event => {
+                event.dataTransfer.setData('text', event.target.id);
+            });
+        });
+
+        // Handle tile drop event in a slot
+        function handleDrop(event) {
+            const letter = event.dataTransfer.getData('text');
+            const slot = event.target;
+            const row = slot.dataset.row;
+
+            if (parseInt(row) === currentRow && slot.textContent === "") {
+                slot.textContent = letter;
+                slot.classList.remove("highlight");
+                currentWord[slot.dataset.column] = letter;
+            }
+        }
+
+        // Submit and check the current word guess
+        function submitWord() {
+            if (currentWord.includes(null)) {
+                document.getElementById("remarks").textContent = "Complete the row before submitting!";
+                return;
+            }
+
+            const rowSlots = wordSlots.children[currentRow].children;
+            let feedback = Array(columns).fill("absent");
+            let remainingLetters = targetWord.split("");
+
+            // Mark correct positions
+            for (let i = 0; i < columns; i++) {
+                if (currentWord[i] === targetWord[i]) {
+                    feedback[i] = "correct";
+                    remainingLetters[i] = null;
+                }
+            }
+
+            // Mark present positions
+            for (let i = 0; i < columns; i++) {
+                if (feedback[i] === "absent" && remainingLetters.includes(currentWord[i])) {
+                    feedback[i] = "present";
+                    remainingLetters[remainingLetters.indexOf(currentWord[i])] = null;
+                }
+            }
+
+            // Apply feedback classes to slots and update keyboard
+            for (let i = 0; i < columns; i++) {
+                rowSlots[i].classList.add(feedback[i]);
+                updateKeyboard(currentWord[i], feedback[i]);
+            }
+
+            // Check for win/lose condition
+            if (currentWord.join("") === targetWord) {
+                document.getElementById("remarks").textContent = "Congratulations! You've guessed the word!";
+            } else if (currentRow === rows - 1) {
+                document.getElementById("remarks").textContent = "Game Over! The word was: " + targetWord;
+            } else {
+                currentRow++;
+                currentWord = Array(columns).fill(null);
+            }
+        }
+
+        // Update keyboard feedback
+        function updateKeyboard(letter, feedback) {
+            const key = Array.from(keyboard.children).find(k => k.innerText === letter);
+            if (key) key.classList.add(feedback);
+        }
+
+        // Clear the current row
+        function clearRow() {
+            const rowSlots = wordSlots.children[currentRow].children;
+            Array.from(rowSlots).forEach(slot => slot.textContent = "");
+            currentWord.fill(null);
+        }
+
+        // Reset the game state
+        function resetGame() {
+            currentRow = 0;
+            currentWord = Array(columns).fill(null);
+            document.getElementById("remarks").textContent = "";
+            Array.from(wordSlots.children).forEach(row => Array.from(row.children).forEach(slot => {
+                slot.textContent = "";
+                slot.className = "slot";
+            }));
+            Array.from(keyboard.children).forEach(key => key.className = "keyboard-key");
+        }
+    </script>
+</body>
+</html>
